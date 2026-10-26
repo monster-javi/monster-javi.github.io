@@ -28,7 +28,7 @@
   .sub{color:var(--dim);margin:0 0 28px;font-size:14.5px}
   .notice{display:none;background:rgba(62,207,106,.1);color:var(--green);border-radius:10px;padding:10px 14px;font-size:13.5px;margin:0 0 20px}
   .notice.show{display:block}
-  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
   @media (max-width:760px){.grid{grid-template-columns:1fr}}
   a.app{display:flex;flex-direction:column;gap:12px;text-decoration:none;color:inherit;background:var(--surface-2);border-radius:16px;padding:20px;box-shadow:var(--shadow);transition:transform .15s ease,box-shadow .15s ease}
   a.app:hover{transform:translateY(-2px)}
@@ -73,8 +73,14 @@
     </a>
     <a class="app" href="https://tareas-mas.vercel.app/" style="--c:var(--amber)">
       <div class="ic ic--img"><img src="https://tareas-mas.vercel.app/task-icon.svg?v=71" alt="" width="42" height="42"></div>
-      <div class="name">Task App</div>
+      <div class="name">Tareas App</div>
       <div class="desc" data-t="task"></div>
+      <div class="go"><span data-t="open"></span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+    </a>
+    <a class="app" href="https://heladera-llena.vercel.app/" style="--c:var(--red)">
+      <div class="ic ic--img"><img src="https://heladera-llena.vercel.app/icon.svg" alt="" width="42" height="42"></div>
+      <div class="name">Heladera llena</div>
+      <div class="desc" data-t="heladera"></div>
       <div class="go"><span data-t="open"></span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
     </a>
   </div>
@@ -86,11 +92,6 @@
       <div><div class="t">Arbolito App</div><div class="d" data-t="arbolito"></div></div>
       <span class="tag" data-t="beta"></span>
     </a>
-    <a class="mini" href="https://heladera-llena.vercel.app/" style="--c:var(--red)">
-      <div class="ic ic--img"><img src="https://heladera-llena.vercel.app/icon.svg" alt="" width="30" height="30"></div>
-      <div><div class="t">Heladera llena</div><div class="d" data-t="heladera"></div></div>
-      <span class="tag" data-t="beta"></span>
-    </a>
     </div>
   </section>
   <footer data-t="foot"></footer>
@@ -100,13 +101,13 @@ const T={
   es:{title:'Hola 👋',sub:'Elegí la app que querés abrir.',
       gastos:'Planilla anual de gastos, lista del mes, deudas, facturación y Bóveda cifrada.',
       task:'Tareas por área y proyecto, calendario, eventos y notas.',
-      arbolito:'Árbol genealógico que se ordena solo.',heladera:'Compras del súper con promos de tu banco, conectada a Task App.',expTitle:'Experimentales',beta:'En prueba',
+      arbolito:'Árbol genealógico que se ordena solo.',heladera:'Compras del súper con promos de tu banco, conectada a Tareas App.',expTitle:'Experimentales',beta:'En prueba',
       open:'Abrir',confirmed:'¡Listo! Tu cuenta quedó confirmada. Elegí una app y entrá con tu mail y contraseña.',
       foot:'Tus datos se guardan en tu cuenta y, si activás el cifrado, solo vos podés leerlos.'},
   en:{title:'Hi 👋',sub:'Pick the app you want to open.',
       gastos:'Yearly expense sheet, monthly list, debts, invoicing and an encrypted Vault.',
       task:'Tasks by area and project, calendar, events and notes.',
-      arbolito:'A family tree that lays itself out.',heladera:'Grocery planning with bank promos, linked to Task App.',expTitle:'Experimental',beta:'Beta',
+      arbolito:'A family tree that lays itself out.',heladera:'Grocery planning with bank promos, linked to Tareas App.',expTitle:'Experimental',beta:'Beta',
       open:'Open',confirmed:'Done! Your account is confirmed. Pick an app and sign in with your email and password.',
       foot:'Your data is saved to your account and, if you turn on encryption, only you can read it.'}
 };
