@@ -2,98 +2,193 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Apps · MonsterJavi</title>
-<meta name="theme-color" content="#0c0e11">
+<meta name="theme-color" content="#eaf2f5">
 <link rel="icon" type="image/svg+xml" href="icon.svg">
 <link rel="alternate icon" href="favicon.ico">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap" rel="stylesheet">
+<script>
+  // Aplica el tema guardado antes de pintar, para que no parpadee.
+  try { var t = localStorage.getItem('apps_theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
 <style>
-  :root{--bg:#0c0e11;--surface:#14171b;--surface-2:#191d22;--border:#262b32;--text:#e9ebee;--dim:#8d94a0;--faint:#5f6772;
-        --blue:#5b97ff;--amber:#f2ab43;--green:#3ecf6a;--red:#ff6a4d;--shadow:0 20px 50px -12px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.06)}
-  @media (prefers-color-scheme: light){:root{--bg:#f4f5f7;--surface:#ffffff;--surface-2:#ffffff;--border:#e3e6ea;--text:#16191d;--dim:#5d6470;--faint:#9aa1ab;
-        --blue:#2f6fe0;--amber:#d48a17;--green:#1e9e50;--red:#e4472d;--shadow:0 12px 32px -14px rgba(20,25,35,.25),0 0 0 1px rgba(20,25,35,.06)}}
+  /* Mismo lenguaje que Gastos App, Tareas App y Heladera llena */
+  :root{
+    --bg:#eaf2f5; --surface:#ffffff; --surface-2:#f1f7fa; --border:#d2e0e6;
+    --text:#132029; --dim:#5b6f7a; --faint:#8ea2ac;
+    --blue:#2f6fe0; --amber:#ea730f; --red:#e4472d; --green:#2f9e57;
+    --halo:rgba(47,111,224,.10); --halo-2:rgba(234,115,15,.08);
+    --shadow:0 30px 80px -28px rgba(15,17,22,.28);
+    --shadow-hover:0 34px 80px -24px rgba(15,17,22,.34);
+    --f-display:"Fredoka","Baloo 2","Trebuchet MS",system-ui,sans-serif;
+    --f-body:"Nunito Sans","Segoe UI",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+    --bg:#0d151a; --surface:#16232b; --surface-2:#1c2c35; --border:#26363f;
+    --text:#e4eef2; --dim:#8fa4ae; --faint:#5f7682;
+    --blue:#5b97ff; --amber:#ff9a3d; --red:#ff6a4d; --green:#4cc276;
+    --halo:rgba(91,151,255,.10); --halo-2:rgba(255,154,61,.07);
+    --shadow:0 30px 80px -24px rgba(0,0,0,.7);
+    --shadow-hover:0 34px 80px -20px rgba(0,0,0,.8);
+    color-scheme:dark;
+  }}
+  :root[data-theme="dark"]{
+    --bg:#0d151a; --surface:#16232b; --surface-2:#1c2c35; --border:#26363f;
+    --text:#e4eef2; --dim:#8fa4ae; --faint:#5f7682;
+    --blue:#5b97ff; --amber:#ff9a3d; --red:#ff6a4d; --green:#4cc276;
+    --halo:rgba(91,151,255,.10); --halo-2:rgba(255,154,61,.07);
+    --shadow:0 30px 80px -24px rgba(0,0,0,.7);
+    --shadow-hover:0 34px 80px -20px rgba(0,0,0,.8);
+    color-scheme:dark;
+  }
+
   *{box-sizing:border-box}
-  html,body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 Inter,system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
-  main{max-width:880px;margin:0 auto;padding:56px 16px 40px;min-height:100vh;display:flex;flex-direction:column}
-  header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:28px}
-  .brand{display:flex;align-items:center;gap:9px;font-weight:700;font-size:17px;letter-spacing:-.01em}
-  .brand .dot{width:8px;height:8px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 3px rgba(91,151,255,.18)}
-  .lang{display:flex;background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:2px}
-  .lang button{border:0;background:none;color:var(--dim);font:inherit;font-size:12.5px;font-weight:600;padding:5px 10px;border-radius:7px;cursor:pointer}
+  html,body{margin:0}
+  body{
+    min-height:100vh; min-height:100dvh; color:var(--text);
+    font:15px/1.5 var(--f-body); -webkit-font-smoothing:antialiased; -webkit-tap-highlight-color:transparent;
+    background:
+      radial-gradient(900px 520px at 15% -12%, var(--halo), transparent 62%),
+      radial-gradient(900px 520px at 90% -10%, var(--halo-2), transparent 62%),
+      var(--bg);
+    background-attachment:fixed;
+    transition:background-color .25s ease, color .25s ease;
+  }
+  button{font:inherit;color:inherit;cursor:pointer}
+  main{
+    max-width:920px; margin:0 auto; min-height:100vh; min-height:100dvh; display:flex; flex-direction:column;
+    padding:calc(28px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) calc(28px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));
+  }
+
+  /* Encabezado */
+  header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:40px}
+  .brand{display:flex;align-items:center;gap:10px;font:600 22px/1 var(--f-display);letter-spacing:.2px}
+  .brand-mark{width:30px;height:30px;border-radius:9px;transform:rotate(-6deg);display:grid;place-items:center;
+    background:linear-gradient(180deg,#7fb0ff,#2f6fe0);box-shadow:0 6px 14px -6px rgba(47,111,224,.6)}
+  .brand-mark svg{width:16px;height:16px;fill:#fff}
+  .tools{display:flex;align-items:center;gap:8px}
+  .iconbtn{display:inline-flex;align-items:center;justify-content:center;height:34px;min-width:34px;padding:0 10px;
+    background:var(--surface);border:1px solid var(--border);border-radius:10px;color:var(--dim);
+    transition:color .12s,border-color .12s,transform .12s}
+  .iconbtn:hover{color:var(--text);border-color:var(--faint)}
+  .iconbtn:active{transform:scale(.94)}
+  .iconbtn:focus-visible,.lang button:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+  .iconbtn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .theme-btn .i-sun{display:none}
+  :root[data-theme="dark"] .theme-btn .i-sun{display:block}
+  :root[data-theme="dark"] .theme-btn .i-moon{display:none}
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]) .theme-btn .i-sun{display:block}
+    :root:not([data-theme="light"]) .theme-btn .i-moon{display:none}
+  }
+  .lang{display:flex;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:2px;height:34px}
+  .lang button{border:0;background:none;color:var(--dim);font-size:12.5px;font-weight:800;padding:0 10px;border-radius:8px}
   .lang button.on{background:var(--surface-2);color:var(--text);box-shadow:0 0 0 1px var(--border)}
-  h1{font-size:26px;line-height:1.25;letter-spacing:-.02em;margin:0 0 6px}
-  .sub{color:var(--dim);margin:0 0 28px;font-size:14.5px}
-  .notice{display:none;background:rgba(62,207,106,.1);color:var(--green);border-radius:10px;padding:10px 14px;font-size:13.5px;margin:0 0 20px}
+
+  /* Saludo */
+  h1{font:600 34px/1.1 var(--f-display);letter-spacing:.2px;margin:0 0 8px}
+  .sub{color:var(--dim);margin:0 0 28px;font-size:15.5px}
+  .notice{display:none;background:color-mix(in srgb,var(--green) 14%,transparent);color:var(--green);border-radius:14px;padding:11px 15px;font-size:14px;font-weight:600;margin:0 0 22px}
   .notice.show{display:block}
-  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-  @media (max-width:760px){.grid{grid-template-columns:1fr}}
-  a.app{display:flex;flex-direction:column;gap:12px;text-decoration:none;color:inherit;background:var(--surface-2);border-radius:16px;padding:20px;box-shadow:var(--shadow);transition:transform .15s ease,box-shadow .15s ease}
-  a.app:hover{transform:translateY(-2px)}
-  a.app:focus-visible{outline:2px solid var(--c);outline-offset:3px}
-  .ic{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--c) 14%,transparent);color:var(--c)}
-  .ic--img{background:none;overflow:hidden}
-  .ic--img img{width:100%;height:100%;display:block}
-  .ic svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-  .name{font-weight:700;font-size:16px}
-  .desc{color:var(--dim);font-size:13.5px;line-height:1.5;flex:1}
-  .go{display:flex;align-items:center;gap:6px;color:var(--c);font-weight:600;font-size:13.5px}
-  .go svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .15s}
+
+  /* Apps */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media (max-width:820px){.grid{grid-template-columns:1fr}}
+  a.app{position:relative;display:flex;flex-direction:column;gap:12px;text-decoration:none;color:inherit;overflow:hidden;
+    background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:22px 22px 20px;box-shadow:var(--shadow);
+    transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+  a.app::before{content:"";position:absolute;inset:0 0 auto 0;height:120px;pointer-events:none;
+    background:radial-gradient(120% 100% at 0% 0%,color-mix(in srgb,var(--c) 14%,transparent),transparent 70%)}
+  a.app:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover);border-color:color-mix(in srgb,var(--c) 40%,var(--border))}
+  a.app:active{transform:translateY(-1px)}
+  a.app:focus-visible{outline:3px solid var(--c);outline-offset:3px}
+  .ic{position:relative;width:52px;height:52px;border-radius:15px;transform:rotate(-6deg);overflow:hidden;
+    box-shadow:0 10px 18px -10px color-mix(in srgb,var(--c) 80%,transparent)}
+  .ic img{width:100%;height:100%;display:block}
+  .name{position:relative;font:600 21px/1.15 var(--f-display);letter-spacing:.2px;margin-top:4px}
+  .desc{position:relative;color:var(--dim);font-size:14px;line-height:1.5;flex:1}
+  .go{position:relative;align-self:flex-start;display:inline-flex;align-items:center;gap:7px;margin-top:4px;
+    background:var(--c);color:#fff;font-weight:800;font-size:14px;padding:9px 16px;border-radius:12px;transition:filter .12s}
+  :root[data-theme="dark"] .go{color:#10181d}
+  @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .go{color:#10181d}}
+  a.app:hover .go{filter:brightness(1.07)}
+  .go svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;transition:transform .15s}
   a.app:hover .go svg{transform:translateX(3px)}
-  .exp{margin-top:36px}
-  .exp .list{display:grid;gap:8px}
-  .exp h2{font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);margin:0 0 10px}
-  a.mini{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit;padding:10px 12px;border-radius:12px;border:1px solid var(--border);max-width:420px;transition:background .15s}
-  a.mini:hover{background:var(--surface)}
-  a.mini .ic{width:30px;height:30px;border-radius:9px}
-  a.mini .ic svg{width:16px;height:16px}
-  a.mini .t{font-weight:600;font-size:13.5px}
-  a.mini .d{color:var(--dim);font-size:12.5px}
-  a.mini .tag{margin-left:auto;font-size:11px;font-weight:600;color:var(--faint);border:1px solid var(--border);border-radius:6px;padding:2px 6px;white-space:nowrap}
-  footer{margin-top:auto;padding-top:40px;color:var(--faint);font-size:12.5px;text-align:center}
+
+  /* Experimentales */
+  .exp{margin-top:40px}
+  .exp h2{font:800 11.5px/1 var(--f-body);letter-spacing:.09em;text-transform:uppercase;color:var(--faint);margin:0 0 12px}
+  a.mini{display:flex;align-items:center;gap:13px;text-decoration:none;color:inherit;padding:12px 14px;border-radius:16px;
+    background:var(--surface);border:1px solid var(--border);max-width:440px;transition:border-color .15s,transform .15s}
+  a.mini:hover{border-color:color-mix(in srgb,var(--c) 45%,var(--border));transform:translateY(-1px)}
+  a.mini:focus-visible{outline:3px solid var(--c);outline-offset:3px}
+  a.mini .mi{width:36px;height:36px;border-radius:11px;transform:rotate(-6deg);display:grid;place-items:center;flex:none;
+    background:color-mix(in srgb,var(--c) 15%,transparent);color:var(--c)}
+  a.mini .mi svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+  a.mini .t{font:600 16px/1.2 var(--f-display)}
+  a.mini .d{color:var(--dim);font-size:13px}
+  a.mini .tag{margin-left:auto;font-size:11px;font-weight:800;color:var(--c);background:color-mix(in srgb,var(--c) 12%,transparent);border-radius:999px;padding:3px 9px;white-space:nowrap}
+
+  footer{margin-top:auto;padding-top:48px;color:var(--faint);font-size:12.5px;text-align:center}
+
+  @media (prefers-reduced-motion: reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
 <main>
   <header>
-    <div class="brand"><span class="dot"></span><span>Apps</span></div>
-    <div class="lang" role="group" aria-label="Idioma / Language"><button data-l="es">ESP</button><button data-l="en">ENG</button></div>
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="2.5"/><rect x="13" y="3" width="8" height="8" rx="2.5"/><rect x="3" y="13" width="8" height="8" rx="2.5"/><rect x="13" y="13" width="8" height="8" rx="2.5"/></svg></span>
+      <span>Apps</span>
+    </div>
+    <div class="tools">
+      <button class="iconbtn theme-btn" id="themeBtn" type="button">
+        <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+      <div class="lang" role="group" aria-label="Idioma / Language"><button type="button" data-l="es">ESP</button><button type="button" data-l="en">ENG</button></div>
+    </div>
   </header>
+
   <div class="notice" id="notice" data-t="confirmed"></div>
   <h1 data-t="title"></h1>
   <p class="sub" data-t="sub"></p>
+
   <div class="grid">
     <a class="app" href="https://gastos-menos.vercel.app/" style="--c:var(--blue)">
-      <div class="ic ic--img"><img src="gastos-icon.svg" alt="" width="42" height="42"></div>
+      <div class="ic"><img src="gastos-icon.svg" alt="" width="52" height="52"></div>
       <div class="name">Gastos App</div>
       <div class="desc" data-t="gastos"></div>
       <div class="go"><span data-t="open"></span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
     </a>
     <a class="app" href="https://tareas-mas.vercel.app/" style="--c:var(--amber)">
-      <div class="ic ic--img"><img src="https://tareas-mas.vercel.app/task-icon.svg?v=71" alt="" width="42" height="42"></div>
+      <div class="ic"><img src="https://tareas-mas.vercel.app/task-icon.svg?v=71" alt="" width="52" height="52"></div>
       <div class="name">Tareas App</div>
       <div class="desc" data-t="task"></div>
       <div class="go"><span data-t="open"></span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
     </a>
     <a class="app" href="https://heladera-llena.vercel.app/" style="--c:var(--red)">
-      <div class="ic ic--img"><img src="https://heladera-llena.vercel.app/icon.svg" alt="" width="42" height="42"></div>
+      <div class="ic"><img src="https://heladera-llena.vercel.app/icon.svg" alt="" width="52" height="52"></div>
       <div class="name">Heladera llena</div>
       <div class="desc" data-t="heladera"></div>
       <div class="go"><span data-t="open"></span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
     </a>
   </div>
+
   <section class="exp">
     <h2 data-t="expTitle"></h2>
-    <div class="list">
     <a class="mini" href="https://arbolito-genealogico.vercel.app/" style="--c:var(--green)">
-      <div class="ic"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="5" rx="1"/><rect x="3" y="16" width="6" height="5" rx="1"/><rect x="15" y="16" width="6" height="5" rx="1"/><path d="M12 8v4M6 16v-2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"/></svg></div>
+      <div class="mi"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="5" rx="1.5"/><rect x="3" y="16" width="6" height="5" rx="1.5"/><rect x="15" y="16" width="6" height="5" rx="1.5"/><path d="M12 8v4M6 16v-2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"/></svg></div>
       <div><div class="t">Arbolito App</div><div class="d" data-t="arbolito"></div></div>
       <span class="tag" data-t="beta"></span>
     </a>
-    </div>
   </section>
+
   <footer data-t="foot"></footer>
 </main>
 <script>
@@ -101,26 +196,53 @@ const T={
   es:{title:'Hola 👋',sub:'Elegí la app que querés abrir.',
       gastos:'Planilla anual de gastos, lista del mes, deudas, facturación y Bóveda cifrada.',
       task:'Tareas por área y proyecto, calendario, eventos y notas.',
-      arbolito:'Árbol genealógico que se ordena solo.',heladera:'Compras del súper con promos de tu banco, conectada a Tareas App.',expTitle:'Experimentales',beta:'En prueba',
+      heladera:'Compras del súper con promos de tu banco, conectada a Tareas App.',
+      arbolito:'Árbol genealógico que se ordena solo.',expTitle:'Experimentales',beta:'En prueba',
       open:'Abrir',confirmed:'¡Listo! Tu cuenta quedó confirmada. Elegí una app y entrá con tu mail y contraseña.',
+      toDark:'Pasar a modo oscuro',toLight:'Pasar a modo claro',
       foot:'Tus datos se guardan en tu cuenta y, si activás el cifrado, solo vos podés leerlos.'},
   en:{title:'Hi 👋',sub:'Pick the app you want to open.',
       gastos:'Yearly expense sheet, monthly list, debts, invoicing and an encrypted Vault.',
       task:'Tasks by area and project, calendar, events and notes.',
-      arbolito:'A family tree that lays itself out.',heladera:'Grocery planning with bank promos, linked to Tareas App.',expTitle:'Experimental',beta:'Beta',
+      heladera:'Grocery planning with bank promos, linked to Tareas App.',
+      arbolito:'A family tree that lays itself out.',expTitle:'Experimental',beta:'Beta',
       open:'Open',confirmed:'Done! Your account is confirmed. Pick an app and sign in with your email and password.',
+      toDark:'Switch to dark mode',toLight:'Switch to light mode',
       foot:'Your data is saved to your account and, if you turn on encryption, only you can read it.'}
 };
+
+/* Idioma */
 let lang='es';
 try{lang=localStorage.getItem('gt_lang')||localStorage.getItem('apps_lang')||(navigator.language||'es').slice(0,2);}catch(e){}
 if(!T[lang])lang='es';
+
+/* Tema: automático según el sistema hasta que tocás el sol o la luna */
+const mq=window.matchMedia?window.matchMedia('(prefers-color-scheme: dark)'):null;
+function currentTheme(){const t=document.documentElement.dataset.theme;return t==='dark'||t==='light'?t:(mq&&mq.matches?'dark':'light');}
+function paintTheme(){
+  const dark=currentTheme()==='dark';
+  document.querySelector('meta[name="theme-color"]').setAttribute('content',dark?'#0d151a':'#eaf2f5');
+  const b=document.getElementById('themeBtn');
+  const label=dark?T[lang].toLight:T[lang].toDark;
+  b.title=label;b.setAttribute('aria-label',label);
+}
+document.getElementById('themeBtn').onclick=()=>{
+  const next=currentTheme()==='dark'?'light':'dark';
+  document.documentElement.dataset.theme=next;
+  try{localStorage.setItem('apps_theme',next);}catch(e){}
+  paintTheme();
+};
+if(mq&&mq.addEventListener)mq.addEventListener('change',paintTheme);
+
 function apply(){
   document.documentElement.lang=lang;
   document.querySelectorAll('[data-t]').forEach(el=>{el.textContent=T[lang][el.dataset.t];});
   document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on',b.dataset.l===lang));
+  paintTheme();
 }
 document.querySelectorAll('.lang button').forEach(b=>b.onclick=()=>{lang=b.dataset.l;try{localStorage.setItem('apps_lang',lang);}catch(e){}apply();});
-// coming back from a confirmation email
+
+/* Vuelta desde el mail de confirmación */
 if(/type=(signup|email_change|magiclink)/.test(location.hash)||/access_token=/.test(location.hash)){
   document.getElementById('notice').classList.add('show');
   history.replaceState(null,'',location.pathname);
