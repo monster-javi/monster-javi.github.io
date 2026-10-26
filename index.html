@@ -34,6 +34,8 @@
   a.app:hover{transform:translateY(-2px)}
   a.app:focus-visible{outline:2px solid var(--c);outline-offset:3px}
   .ic{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--c) 14%,transparent);color:var(--c)}
+  .ic--img{background:none;overflow:hidden}
+  .ic--img img{width:100%;height:100%;display:block}
   .ic svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
   .name{font-weight:700;font-size:16px}
   .desc{color:var(--dim);font-size:13.5px;line-height:1.5;flex:1}
@@ -70,7 +72,7 @@
       <div class="go"><span data-t="open"></span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
     </a>
     <a class="app" href="https://monster-javi.github.io/task-app/" style="--c:var(--amber)">
-      <div class="ic"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="m8.5 12.5 2.5 2.5 4.5-5"/></svg></div>
+      <div class="ic ic--img"><img src="https://monster-javi.github.io/task-app/task-icon.svg?v=71" alt="" width="42" height="42"></div>
       <div class="name">Task App</div>
       <div class="desc" data-t="task"></div>
       <div class="go"><span data-t="open"></span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
@@ -85,7 +87,7 @@
       <span class="tag" data-t="beta"></span>
     </a>
     <a class="mini" href="https://monster-javi.github.io/heladera-llena-app/" style="--c:var(--red)">
-      <div class="ic"><svg viewBox="0 0 24 24"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M6 9h12M15 5v2M15 11.5v3"/></svg></div>
+      <div class="ic ic--img"><img src="https://monster-javi.github.io/heladera-llena-app/icon.svg" alt="" width="30" height="30"></div>
       <div><div class="t">Heladera llena</div><div class="d" data-t="heladera"></div></div>
       <span class="tag" data-t="beta"></span>
     </a>
